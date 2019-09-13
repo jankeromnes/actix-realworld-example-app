@@ -1,0 +1,11 @@
+image: gitpod/workspace-postgres
+ports:
+  - port: 8088
+    onOpen: open-preview
+tasks:
+  - init: >
+      cargo install diesel_cli &&
+      cat .env.example | sed "s/BIND_ADDRESS\s*=\s*127\.0\.0\.1/BIND_ADDRESS=0.0.0.0/g" > .env &&
+      diesel database setup &&
+      cargo build
+    command: cargo run
